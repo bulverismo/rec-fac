@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import face_recognition
 import numpy as np
 from flask import Flask, jsonify, request, redirect
@@ -6,10 +8,6 @@ from flask_cors import CORS
 import base64
 import os
 import pickle
-import conecta
-
-#conecta.conectarAoBanco()
-#print(conecta.horaUltReg("teste"))
 
 # arquivo do banco de dados
 arquivo_dat = 'registro-faces.dat'
@@ -50,8 +48,7 @@ else:
     # grave uma lista dos nomes e uma das codificações
     nomesDeFaceConhecidas = [] 
     codificacoesDeFaceConhecidas = []
-
-
+quit()
 print("Nome das faces carregadas do arquivo ",arquivo_dat)
 print(nomesDeFaceConhecidas)
 
@@ -205,47 +202,6 @@ def detectFace():
     img = 0
 
 
-@app.route('/horaultima', methods=['POST', 'GET'])
-def horaUltima():
-
-    if request.method == 'POST':
-
-        nome = request.form['nome']
-        print(nome)
-        horaUltRegistro  = conecta.horaUltReg(nome)
-        
-        result = {"nome": horaUltRegistro }
-        return jsonify(result)
-
-    else:
-        return '''
-
-       <!doctype html>
-       <title>Selfie</title>
-       <h1>Função</h1>
-       '''
-
-
-@app.route('/registra', methods=['POST', 'GET'])
-def registrar():
-
-    if request.method == 'POST':
-
-        nome = request.form['nome']
-        registrar = conecta.registrar(nome)
-        
-        result = {"registra": registrar }
-        return jsonify(result)
-
-    else:
-        return '''
-
-       <!doctype html>
-       <title>Selfie</title>
-       <h1>Função</h1>
-       '''
-
-
-if __name__ == '__main__':
-    signal(SIGPIPE, SIG_DFL)
-    app.run(host='0.0.0.0', port=5001, debug=True, threaded=True)
+#if __name__ == '__main__':
+#    signal(SIGPIPE, SIG_DFL)
+#    app.run(host='0.0.0.0', port=5001, debug=True, threaded=True)
