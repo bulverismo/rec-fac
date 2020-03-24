@@ -48,7 +48,6 @@ else:
     # grave uma lista dos nomes e uma das codificações
     nomesDeFaceConhecidas = [] 
     codificacoesDeFaceConhecidas = []
-quit()
 print("Nome das faces carregadas do arquivo ",arquivo_dat)
 print(nomesDeFaceConhecidas)
 
