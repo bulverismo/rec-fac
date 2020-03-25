@@ -1,2 +1,1 @@
-Api de reconhecimento facial kowabulver
-Desenvolvida por João Machado e Ezekiel Bulver
+Api de reconhecimento facial KowaBulver desenvolvida por João Machado e Ezekiel Bulver
