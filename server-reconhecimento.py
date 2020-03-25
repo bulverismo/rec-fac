@@ -8,46 +8,15 @@ from flask_cors import CORS
 import base64
 import os
 import pickle
+from criaDat import criadat
 
-# arquivo do banco de dados
-arquivo_dat = 'registro-faces.dat'
 
-# aqui é onde deve buscar o banco de rosto ja guardados
-if os.path.exists(arquivo_dat):
-    print("O arquivo ",arquivo_dat," ja existia")
-    # abrir o arquivo_dat
-    
-    with open(arquivo_dat, 'rb') as f:
-        codificacoesDeFaceConhecidas = pickle.load(f)
-        
-    # preencher as variaveis com os valores do arquivo_dat e
-    # carregar todas as codificações das faces
+arquivo_dat = 'arq1.dat'
+retorno = criadat(arquivo_dat)
 
-    # grave uma lista dos nomes e uma das codificações ou inicialize com vazio caso não tenha nada salvo
-    if (len(codificacoesDeFaceConhecidas)>0):
-            
-        nomesDeFaceConhecidas = list(codificacoesDeFaceConhecidas.keys())
-        codificacoesDeFaceConhecidas = list(codificacoesDeFaceConhecidas.values())
-    else:
-        
-        nomesDeFaceConhecidas = [] 
-        codificacoesDeFaceConhecidas = []
+nomesDeFaceConhecidas = retorno[0]
+codificacoesDeFaceConhecidas = retorno[1]
 
-else:
-    # caso o arquivo do banco de dados não exista crie e preencha as variaveis com vazio
-    pickle.dump([], open( arquivo_dat, "wb" ))
-    print("O arquivo ",arquivo_dat," não existia e foi criado")
-
-    # abrir o arquivo recém criado que esta vazio
-    with open(arquivo_dat, 'rb') as f:
-        codificacoesDeFaceConhecidas = pickle.load(f)
-        
-    # preencher as variaveis com os valores do arquivo_dat e
-    # carregar todas as codificações das faces
-
-    # grave uma lista dos nomes e uma das codificações
-    nomesDeFaceConhecidas = [] 
-    codificacoesDeFaceConhecidas = []
 print("Nome das faces carregadas do arquivo ",arquivo_dat)
 print(nomesDeFaceConhecidas)
 
@@ -201,6 +170,6 @@ def detectFace():
     img = 0
 
 
-#if __name__ == '__main__':
-#    signal(SIGPIPE, SIG_DFL)
-#    app.run(host='0.0.0.0', port=5001, debug=True, threaded=True)
+if __name__ == '__main__':
+    signal(SIGPIPE, SIG_DFL)
+    app.run(host='0.0.0.0', port=5001, debug=True, threaded=True)
