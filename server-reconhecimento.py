@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import face_recognition
+import sys
 import numpy as np
 from flask import Flask, jsonify, request, redirect
 from signal import signal, SIGPIPE, SIG_DFL
@@ -10,25 +11,13 @@ import os
 import pickle
 from criaDat import criadat
 
-
-arquivo_dat = 'arq1.dat'
-retorno = criadat(arquivo_dat)
-
-nomesDeFaceConhecidas = retorno[0]
-codificacoesDeFaceConhecidas = retorno[1]
-
-print("Nome das faces carregadas do arquivo ",arquivo_dat)
-print(nomesDeFaceConhecidas)
-
-knownFaceEncodings = codificacoesDeFaceConhecidas 
-knownFaceNames = nomesDeFaceConhecidas 
-all_face_encodings = {}
-
-
+ 
 # criando servidor web Flask
 app = Flask(__name__)
 # o cors faz com que possa enviar e receber via post de destinos que não estejam atrás do mesmo dominio
 CORS(app)
+
+
 
 @app.route('/upload-face', methods=['POST','GET'])
 def uploadFace():
@@ -171,5 +160,23 @@ def detectFace():
 
 
 if __name__ == '__main__':
+    if len(sys.argv) != 2:
+        print("\nComo usar:\n\t {} <arquivoFaces.dat>\n".format(sys.argv[0]))
+        sys.exit(1)
+
+    arquivo_dat = sys.argv[-1] 
+
+    retorno = criadat(arquivo_dat)
+    
+    nomesDeFaceConhecidas = retorno[0]
+    codificacoesDeFaceConhecidas = retorno[1]
+    
+    print("Nome das faces carregadas do arquivo ",arquivo_dat)
+    print(nomesDeFaceConhecidas)
+    sys.exit(0) 
+    knownFaceEncodings = codificacoesDeFaceConhecidas 
+    knownFaceNames = nomesDeFaceConhecidas 
+    all_face_encodings = {}
     signal(SIGPIPE, SIG_DFL)
     app.run(host='0.0.0.0', port=5001, debug=True, threaded=True)
+    
