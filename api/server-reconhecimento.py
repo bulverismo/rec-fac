@@ -22,7 +22,7 @@ CORS(app)
 def index():
     return "<h1 style='color:blue;'>KowaBulver<h1>"
 
-@app.route("/api/<nome>", methods=['POST','GET'])
+@app.route("/api/create/<nome>", methods=['POST','GET'])
 def uploadFace(nome):
     if request.method == 'POST':
         file = request.files['file']
@@ -89,7 +89,7 @@ def uploadFace(nome):
       </form>
      '''
 
-@app.route('/detect-face', methods=['POST', 'GET'])
+@app.route('/api/read', methods=['POST', 'GET'])
 def detectFace():
 
     if request.method == 'POST':
@@ -177,5 +177,4 @@ if __name__ == '__main__':
     knownFaceNames = nomesDeFaceConhecidas 
     all_face_encodings = {}
     signal(SIGPIPE, SIG_DFL)
-    app.run(host='0.0.0.0', port=5001, debug=True, threaded=True)
-    
+    app.run(host='0.0.0.0', port=6000, debug=True, threaded=True)
