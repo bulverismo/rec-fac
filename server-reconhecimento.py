@@ -9,6 +9,7 @@ from flask_cors import CORS
 import base64
 import os
 import pickle
+import json
 from criaDat import criadat
 
  
@@ -17,26 +18,16 @@ app = Flask(__name__)
 # o cors faz com que possa enviar e receber via post de destinos que não estejam atrás do mesmo dominio
 CORS(app)
 
+@app.route("/")
+def index():
+    return "KowaBulver"
 
-
-@app.route('/upload-face', methods=['POST','GET'])
-def uploadFace():
+@app.route('/cadastrar', methods=['POST','GET'])
+def uploadFace(nome):
     if request.method == 'POST':
         file = request.files['file']
         name = request.form['name']
         known_image = face_recognition.load_image_file(file)
-        print("teste") 
-
-        # recebe a imagem via POST com o clique do botão
-        #image_base64 = request.form['foto']
-        #image_base64 = image_base64.replace("data:image/png;base64,","")
-        #image_base64 = image_base64.replace(" ","+")
-        #image = base64.b64decode(image_base64)
-        #with open('cadastrar.png', 'wb') as fh:
-        #    fh.write(image)        
-        
-        #nome = request.form['nome']
-        #imagem_conhecida = face_recognition.load_image_file('./cadastrar.png')
 
         if len(known_image) > 0:
 #        if len(imagem_conhecida) > 0:
@@ -92,31 +83,30 @@ def uploadFace():
 def detectFace():
 
     if request.method == 'POST':
-#        file = request.files['file']
-#        print(request.headers)
-#        print(json.dumps(request.json))
-#        image_data = request.json['file']
-#       
-#        print(image_data)
+        file = request.files['file']
+        
         faceNames = []
+        
         if (len(knownFaceNames) == 0):
             name = "sem cadastros" 
         else:
-            
+   #         
 
-            image_base64 = request.form['fname']
-            image_base64 = image_base64.replace("data:image/png;base64,","")
-            image_base64 = image_base64.replace(" ","+")
-            image = base64.b64decode(image_base64)
-            with open('image.png', 'wb') as fh:
-                fh.write(image)        
+   #         image_base64 = request.form['fname']
+   #         image_base64 = image_base64.replace("data:image/png;base64,","")
+   #         image_base64 = image_base64.replace(" ","+")
+   #         image = base64.b64decode(image_base64)
+   #         with open('image.png', 'wb') as fh:
+   #             fh.write(image)        
+   # 
     
-    
-            capturePhoto = face_recognition.load_image_file('./image.png')
+            capturePhoto = face_recognition.load_image_file(file)
     #
     #        capturePhoto = cv2.imread(fh)
     #        
+    #         faceEncodings = face_recognition.face_encodings(capturePhoto)
             faceEncodings = face_recognition.face_encodings(capturePhoto)
+    #        capturePhoto = face_recognition.load_image_file('./image.png')
     #        faceEncodings = face_recognition.face_encodings(image)
     #            
     #        
@@ -173,7 +163,7 @@ if __name__ == '__main__':
     
     print("Nome das faces carregadas do arquivo ",arquivo_dat)
     print(nomesDeFaceConhecidas)
-    sys.exit(0) 
+    
     knownFaceEncodings = codificacoesDeFaceConhecidas 
     knownFaceNames = nomesDeFaceConhecidas 
     all_face_encodings = {}

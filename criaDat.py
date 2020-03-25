@@ -29,7 +29,6 @@ def criadat(arquivo_dat):
             nomesDeFaceConhecidas = [] 
             codificacoesDeFaceConhecidas = []
     
-            return [ nomesDeFaceConhecidas, codificacoesDeFaceConhecidas ]
     else:
         # caso o arquivo do banco de dados não exista crie e preencha as variaveis com vazio
         pickle.dump([], open( arquivo_dat, "wb" ))
@@ -45,8 +44,8 @@ def criadat(arquivo_dat):
         # grave uma lista dos nomes e uma das codificações
         nomesDeFaceConhecidas = [] 
         codificacoesDeFaceConhecidas = []
-        return [ nomesDeFaceConhecidas, codificacoesDeFaceConhecidas ]
-
+    
+    return [ nomesDeFaceConhecidas, codificacoesDeFaceConhecidas ]
 # exemplo de como usar o retorno
 # retorno = criadat(arquivo_dat)
 # print("Nome das faces carregadas do arquivo ",arquivo_dat)
