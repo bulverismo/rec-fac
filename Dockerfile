@@ -8,4 +8,4 @@ RUN         chmod a+x *.py
 COPY        requirements.txt /app/
 RUN         pip3 install -r requirements.txt
 
-CMD         ["./server-reconhecimento.py"]
+ENTRYPOINT  ["./server-reconhecimento.py"]

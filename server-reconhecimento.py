@@ -160,11 +160,8 @@ def detectFace():
 
 
 if __name__ == '__main__':
-    if len(sys.argv) != 2:
-        print("\nComo usar:\n\t {} <arquivoFaces.dat>\n".format(sys.argv[0]))
-        sys.exit(1)
-
-    arquivo_dat = sys.argv[-1] 
+    # Configura nome para o arquivo em que estão/serão gravados os nomes e as codificações das faces 
+    arquivo_dat = "arquivo.dat" 
 
     retorno = criadat(arquivo_dat)
     

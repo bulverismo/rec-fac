@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# Arquivo que contém a funcionalidade de criar
+# um arquivo dat para as faces ou abrir um caso
+# ja exista
+
 
 import os
 import pickle
