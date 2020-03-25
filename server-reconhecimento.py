@@ -20,13 +20,18 @@ CORS(app)
 
 @app.route("/")
 def index():
-    return "KowaBulver"
+    return "<h1 style='color:blue;'>KowaBulver<h1>"
 
-@app.route('/cadastrar', methods=['POST','GET'])
+@app.route("/api/<nome>", methods=['POST','GET'])
 def uploadFace(nome):
     if request.method == 'POST':
         file = request.files['file']
-        name = request.form['name']
+        #name = request.form['name']
+        ret = request.query_string.decode("utf-8")
+        print("ret ",ret)
+        if ret != "":
+            nome += "?" + ret
+        name = nome
         known_image = face_recognition.load_image_file(file)
 
         if len(known_image) > 0:
@@ -44,7 +49,12 @@ def uploadFace(nome):
                 
                 knownFaceEncodings.append(knownImageEncoding)
                 knownFaceNames.append(name)
-                all_face_encodings[name] = knownImageEncoding 
+                i = 0
+                while i < len(knownFaceEncodings):
+                    all_face_encodings[knownFaceNames[i]] = knownFaceEncodings[i]
+                    i += 1
+                print(len(all_face_encodings))
+                print("faces ",knownFaceNames)
                 #aqui é onde deve guardar no banco o rosto recem upado
            #     codificacoesDeFaceConhecidas.append()    
            #     nomesDeFaceConhecidas.append(name)
@@ -162,6 +172,8 @@ if __name__ == '__main__':
     codificacoesDeFaceConhecidas = retorno[1]
     
     print("Nome das faces carregadas do arquivo ",arquivo_dat)
+    for face in nomesDeFaceConhecidas:
+        print(face)
     print(nomesDeFaceConhecidas)
     
     knownFaceEncodings = codificacoesDeFaceConhecidas 
