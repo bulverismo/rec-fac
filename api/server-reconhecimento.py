@@ -13,7 +13,7 @@ import json
 from criaDat import criadat
 
  
-# criando servidor web Flask
+# criando servidor Flask
 app = Flask(__name__)
 # o cors faz com que possa enviar e receber via post de destinos que não estejam atrás do mesmo dominio
 CORS(app)
